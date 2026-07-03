@@ -1,0 +1,454 @@
+# ============================================================
+# DETECT IT EASY (DIE)
+# Malware Analysis • Reverse Engineering • Binary Analysis
+# ============================================================
+
+> Identify File Type • Compiler • Packer • Entropy • Architecture
+
+---
+
+# ============================================================
+# INSTALLATION
+# ============================================================
+
+## Kali / Parrot
+
+```bash
+sudo apt install detect-it-easy
+```
+
+If unavailable
+
+```bash
+git clone https://github.com/horsicq/Detect-It-Easy.git
+
+cd Detect-It-Easy
+```
+
+Download the latest release from GitHub if required.
+
+---
+
+# ============================================================
+# START DIE
+# ============================================================
+
+## GUI
+
+```bash
+die
+```
+
+or
+
+```bash
+./die
+```
+
+---
+
+## CLI
+
+```bash
+diec sample.exe
+```
+
+Linux ELF
+
+```bash
+diec sample.elf
+```
+
+---
+
+# ============================================================
+# BASIC COMMANDS
+# ============================================================
+
+## Analyze File
+
+```bash
+diec malware.exe
+```
+
+---
+
+## Analyze ELF
+
+```bash
+diec malware.elf
+```
+
+---
+
+## Verbose Output
+
+```bash
+diec -v malware.exe
+```
+
+---
+
+## JSON Output
+
+```bash
+diec -j malware.exe
+```
+
+---
+
+## Help
+
+```bash
+diec --help
+```
+
+---
+
+# ============================================================
+# WHAT DIE DETECTS
+# ============================================================
+
+| Feature | Description |
+|----------|-------------|
+| File Type | PE / ELF / Mach-O |
+| Architecture | x86 / x64 / ARM / MIPS |
+| Compiler | GCC / MSVC / Delphi / Go |
+| Packer | UPX / Themida / VMProtect / ASPack |
+| Entropy | Detect Packed / Encrypted Files |
+| Entry Point | Program Starting Address |
+| Digital Signature | Signed / Unsigned |
+| Overlay | Hidden/Appended Data |
+| Imports | Imported Functions |
+| Exports | Exported Functions |
+
+---
+
+# ============================================================
+# FILE TYPES
+# ============================================================
+
+Possible Results
+
+```
+PE32
+PE64
+ELF32
+ELF64
+Mach-O
+.NET
+Java
+Android DEX
+```
+
+---
+
+# ============================================================
+# ARCHITECTURE
+# ============================================================
+
+Possible Results
+
+```
+x86
+x64
+ARM
+ARM64
+MIPS
+PowerPC
+```
+
+---
+
+# ============================================================
+# COMMON COMPILERS
+# ============================================================
+
+Possible Results
+
+```
+GCC
+MSVC
+MinGW
+Borland
+Delphi
+Go
+Rust
+Visual Basic
+```
+
+---
+
+# ============================================================
+# COMMON PACKERS
+# ============================================================
+
+Possible Results
+
+```
+UPX
+Themida
+VMProtect
+ASPack
+PECompact
+MPRESS
+FSG
+No Packer
+```
+
+---
+
+# ============================================================
+# ENTROPY
+# ============================================================
+
+Typical Values
+
+| Entropy | Meaning |
+|---------|----------|
+| 0.0 - 5.5 | Normal |
+| 5.5 - 7.0 | Compressed |
+| 7.0 - 8.0 | Packed / Encrypted |
+
+Example
+
+```
+Entropy : 7.94
+```
+
+High Entropy Usually Means
+
+✔ Packed
+
+✔ Encrypted
+
+✔ Compressed
+
+---
+
+# ============================================================
+# ENTRY POINT
+# ============================================================
+
+Example
+
+```
+Entry Point
+
+0x401000
+```
+
+---
+
+# ============================================================
+# DIGITAL SIGNATURE
+# ============================================================
+
+Possible Results
+
+```
+Signed
+
+Unsigned
+
+Invalid Signature
+```
+
+---
+
+# ============================================================
+# OVERLAY
+# ============================================================
+
+Shows
+
+• Hidden Data
+
+• Appended Payload
+
+• Embedded Archive
+
+---
+
+# ============================================================
+# IMPORTS / EXPORTS
+# ============================================================
+
+Useful for identifying
+
+```
+Networking
+
+Registry Access
+
+File Access
+
+Cryptography
+
+Windows API Calls
+```
+
+---
+
+# ============================================================
+# SAMPLE OUTPUT
+# ============================================================
+
+```
+File Type      : PE64
+
+Architecture   : x64
+
+Compiler       : MSVC 2022
+
+Packer         : UPX
+
+Entropy        : 7.91
+
+Entry Point    : 0x140001000
+
+Digital Sign   : Unsigned
+```
+
+---
+
+# ============================================================
+# COMMON MALWARE ANALYSIS WORKFLOW
+# ============================================================
+
+## Step 1 - Identify File
+
+```bash
+file malware.exe
+```
+
+---
+
+## Step 2 - Calculate Hash
+
+```bash
+sha256sum malware.exe
+```
+
+---
+
+## Step 3 - View Strings
+
+```bash
+strings malware.exe
+```
+
+---
+
+## Step 4 - Detect Compiler/Packer
+
+```bash
+diec malware.exe
+```
+
+---
+
+## Step 5 - View Metadata
+
+```bash
+exiftool malware.exe
+```
+
+---
+
+## Step 6 - Extract Embedded Files
+
+```bash
+binwalk -e malware.exe
+```
+
+---
+
+# ============================================================
+# COMMON PRACTICE QUESTIONS
+# ============================================================
+
+✔ Identify File Type
+
+✔ Identify Compiler
+
+✔ Identify Architecture
+
+✔ Identify Packer
+
+✔ Determine Entropy
+
+✔ Find Entry Point
+
+✔ Check Digital Signature
+
+✔ Determine if Packed
+
+✔ Find Overlay
+
+✔ Determine Programming Language
+
+---
+
+# ============================================================
+# RELATED TOOLS
+# ============================================================
+
+| Tool | Purpose |
+|------|----------|
+| file | Identify File Type |
+| strings | Extract Printable Strings |
+| sha256sum | Generate Hash |
+| md5sum | Generate MD5 |
+| exiftool | Metadata |
+| binwalk | Firmware Extraction |
+| xxd | Hex Dump |
+| readelf | ELF Analysis |
+| objdump | Binary Analysis |
+| Detect It Easy | Compiler / Packer / Entropy |
+
+---
+
+# ============================================================
+# QUICK REFERENCE
+# ============================================================
+
+```bash
+# Analyze Binary
+diec sample.exe
+
+# Analyze ELF
+diec sample.elf
+
+# Verbose
+diec -v sample.exe
+
+# JSON Output
+diec -j sample.exe
+
+# Help
+diec --help
+
+# Related Analysis
+file sample.exe
+strings sample.exe
+sha256sum sample.exe
+exiftool sample.exe
+binwalk -e sample.exe
+```
+
+---
+
+# ============================================================
+# PRO TIPS
+# ============================================================
+
+✔ Always check **Entropy** first.
+
+✔ A **high entropy (>7)** often indicates packing or encryption.
+
+✔ If a file is packed (e.g., UPX), unpack it before deeper analysis.
+
+✔ Use **DIE + strings + file + sha256sum** together for a quick first look.
+
+✔ Export JSON (`diec -j`) if you want structured output for reports or automation.
