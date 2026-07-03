@@ -1,0 +1,659 @@
+# ============================================================
+# CRYPTOGRAPHY & STEGANOGRAPHY TOOLKIT
+# Linux • Windows • Security Labs
+# ============================================================
+
+> Hashing • Encoding • Encryption • Steganography • File Analysis
+
+---
+
+# ============================================================
+# HASHING & INTEGRITY
+# ============================================================
+
+| Tool | Purpose |
+|------|---------|
+| md5sum | Generate MD5 Hash |
+| sha1sum | Generate SHA1 Hash |
+| sha256sum | Generate SHA256 Hash |
+| sha512sum | Generate SHA512 Hash |
+| openssl dgst | Generate Various Hashes |
+| HashCalc (Windows) | GUI Hash Calculator |
+
+---
+
+## MD5
+
+```bash
+md5sum file.txt
+```
+
+Verify
+
+```bash
+md5sum -c checksum.md5
+```
+
+---
+
+## SHA1
+
+```bash
+sha1sum file.txt
+```
+
+---
+
+## SHA256
+
+```bash
+sha256sum file.txt
+```
+
+---
+
+## SHA512
+
+```bash
+sha512sum file.txt
+```
+
+---
+
+## OpenSSL Hashes
+
+MD5
+
+```bash
+openssl dgst -md5 file.txt
+```
+
+SHA1
+
+```bash
+openssl dgst -sha1 file.txt
+```
+
+SHA256
+
+```bash
+openssl dgst -sha256 file.txt
+```
+
+SHA512
+
+```bash
+openssl dgst -sha512 file.txt
+```
+
+---
+
+# ============================================================
+# HASH IDENTIFICATION
+# ============================================================
+
+## HashID
+
+Install
+
+```bash
+sudo apt install hashid
+```
+
+Identify Hash
+
+```bash
+hashid HASH
+```
+
+File
+
+```bash
+hashid hashes.txt
+```
+
+---
+
+## Hash-Identifier
+
+```bash
+hash-identifier
+```
+
+Paste Hash
+
+↓
+
+Suggests Algorithm
+
+---
+
+# ============================================================
+# PASSWORD CRACKING
+# ============================================================
+
+| Tool | Purpose |
+|------|---------|
+| John | Password Cracking |
+| Hashcat | GPU Password Cracking |
+
+---
+
+## John The Ripper
+
+Basic
+
+```bash
+john hash.txt
+```
+
+Using RockYou
+
+```bash
+john --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
+```
+
+Show Password
+
+```bash
+john --show hash.txt
+```
+
+SSH Key
+
+```bash
+ssh2john id_rsa > hash.txt
+john hash.txt
+```
+
+ZIP
+
+```bash
+zip2john secret.zip > hash.txt
+john hash.txt
+```
+
+RAR
+
+```bash
+rar2john archive.rar > hash.txt
+john hash.txt
+```
+
+---
+
+## Hashcat
+
+Help
+
+```bash
+hashcat --help
+```
+
+Example Hashes
+
+```bash
+hashcat --example-hashes
+```
+
+MD5
+
+```bash
+hashcat -m 0 hash.txt rockyou.txt
+```
+
+NTLM
+
+```bash
+hashcat -m 1000 hash.txt rockyou.txt
+```
+
+SHA1
+
+```bash
+hashcat -m 100 hash.txt rockyou.txt
+```
+
+SHA256
+
+```bash
+hashcat -m 1400 hash.txt rockyou.txt
+```
+
+Show Cracked Passwords
+
+```bash
+hashcat --show hash.txt
+```
+
+---
+
+## Common Hashcat Modes
+
+| Hash | Mode |
+|------|------|
+| MD5 | 0 |
+| SHA1 | 100 |
+| NTLM | 1000 |
+| SHA256 | 1400 |
+| bcrypt | 3200 |
+
+---
+
+# ============================================================
+# ENCODING
+# ============================================================
+
+## Base64 Encode
+
+```bash
+echo "hello" | base64
+```
+
+File
+
+```bash
+base64 file.txt
+```
+
+---
+
+## Base64 Decode
+
+```bash
+echo aGVsbG8= | base64 -d
+```
+
+File
+
+```bash
+base64 -d encoded.txt
+```
+
+---
+
+## Hex Dump
+
+```bash
+xxd file.txt
+```
+
+Reverse
+
+```bash
+xxd -r hex.txt
+```
+
+---
+
+# ============================================================
+# ENCRYPTION
+# ============================================================
+
+## OpenSSL AES-256 Encrypt
+
+```bash
+openssl enc -aes-256-cbc -salt -in secret.txt -out secret.enc
+```
+
+Decrypt
+
+```bash
+openssl enc -aes-256-cbc -d -in secret.enc -out secret.txt
+```
+
+---
+
+## Generate RSA Key
+
+```bash
+openssl genrsa -out private.key 2048
+```
+
+Public Key
+
+```bash
+openssl rsa -in private.key -pubout -out public.key
+```
+
+---
+
+## GPG
+
+Generate Key
+
+```bash
+gpg --full-generate-key
+```
+
+Encrypt
+
+```bash
+gpg -e -r username file.txt
+```
+
+Decrypt
+
+```bash
+gpg -d file.txt.gpg
+```
+
+List Keys
+
+```bash
+gpg --list-keys
+```
+
+---
+
+# ============================================================
+# FILE ANALYSIS
+# ============================================================
+
+## File Type
+
+```bash
+file sample.bin
+```
+
+---
+
+## Strings
+
+```bash
+strings sample.exe
+```
+
+Minimum Length
+
+```bash
+strings -n 8 sample.exe
+```
+
+---
+
+## ExifTool
+
+Install
+
+```bash
+sudo apt install exiftool
+```
+
+Read Metadata
+
+```bash
+exiftool image.jpg
+```
+
+Author
+
+```bash
+exiftool -Author image.jpg
+```
+
+GPS
+
+```bash
+exiftool -gps* image.jpg
+```
+
+---
+
+## Binwalk
+
+Scan
+
+```bash
+binwalk firmware.bin
+```
+
+Extract
+
+```bash
+binwalk -e firmware.bin
+```
+
+---
+
+# ============================================================
+# STEGANOGRAPHY
+# ============================================================
+
+| Tool | Purpose |
+|------|---------|
+| Steghide | Hide/Extract Files |
+| Snow | Hide Text in Whitespace |
+| QuickStego | Windows GUI |
+| zsteg | PNG/BMP Analysis |
+
+---
+
+## Steghide
+
+Embed
+
+```bash
+steghide embed -cf image.jpg -ef secret.txt
+```
+
+Extract
+
+```bash
+steghide extract -sf image.jpg
+```
+
+Info
+
+```bash
+steghide info image.jpg
+```
+
+---
+
+## Snow
+
+Install
+
+```bash
+sudo apt install snow
+```
+
+Hide Message
+
+```bash
+snow -C -m "Hidden Message" cover.txt > output.txt
+```
+
+Extract
+
+```bash
+snow -C output.txt
+```
+
+---
+
+## QuickStego (Windows)
+
+Functions
+
+• Hide Text
+
+• Open Image
+
+• Reveal Hidden Text
+
+Supports
+
+BMP Images
+
+---
+
+## zsteg
+
+Install
+
+```bash
+gem install zsteg
+```
+
+Analyze PNG/BMP
+
+```bash
+zsteg image.png
+```
+
+---
+
+# ============================================================
+# WINDOWS GUI TOOLS
+# ============================================================
+
+| Tool | Purpose |
+|------|---------|
+| HashCalc | Calculate MD5/SHA1/SHA256 |
+| MD5 Calculator | MD5 Only |
+| QuickStego | Image Steganography |
+
+---
+
+# ============================================================
+# COMMON HASH TYPES
+# ============================================================
+
+| Algorithm | Length |
+|-----------|--------|
+| MD5 | 32 |
+| SHA1 | 40 |
+| SHA256 | 64 |
+| SHA512 | 128 |
+| NTLM | 32 |
+| bcrypt | 60 |
+
+---
+
+# ============================================================
+# USEFUL LINUX COMMANDS
+# ============================================================
+
+Find Hash
+
+```bash
+sha256sum file
+```
+
+Find File Type
+
+```bash
+file sample
+```
+
+Find Hidden Strings
+
+```bash
+strings sample.exe
+```
+
+Hex Dump
+
+```bash
+xxd sample.exe
+```
+
+Metadata
+
+```bash
+exiftool image.jpg
+```
+
+Extract Firmware
+
+```bash
+binwalk -e firmware.bin
+```
+
+---
+
+# ============================================================
+# TOOL SELECTION GUIDE
+# ============================================================
+
+| Task | Tool |
+|------|------|
+| Calculate Hash | sha256sum |
+| Verify Integrity | md5sum -c |
+| Crack Password | John |
+| GPU Crack | Hashcat |
+| Identify Hash | HashID |
+| Encrypt File | OpenSSL |
+| Encrypt with Keys | GPG |
+| Decode Base64 | base64 |
+| Hex Dump | xxd |
+| Find Hidden Strings | strings |
+| Identify File | file |
+| View Metadata | exiftool |
+| Extract Firmware | binwalk |
+| Hide Data in Image | Steghide |
+| Hide Text in File | Snow |
+| Analyze PNG/BMP | zsteg |
+
+---
+
+# ============================================================
+# INSTALLATION
+# ============================================================
+
+```bash
+sudo apt update
+
+sudo apt install steghide
+sudo apt install snow
+sudo apt install hashid
+sudo apt install john
+sudo apt install hashcat
+sudo apt install exiftool
+sudo apt install binwalk
+sudo apt install openssl
+sudo apt install gnupg
+```
+
+---
+
+# ============================================================
+# QUICK REFERENCE
+# ============================================================
+
+```bash
+# Hashes
+md5sum file
+sha1sum file
+sha256sum file
+sha512sum file
+
+# Hash ID
+hashid HASH
+
+# Password Cracking
+john hash.txt
+hashcat -m 1000 hash.txt rockyou.txt
+
+# Base64
+base64 file
+base64 -d file
+
+# Encryption
+openssl enc -aes-256-cbc -in file -out file.enc
+gpg -e file
+
+# File Analysis
+file sample
+strings sample
+xxd sample
+exiftool image.jpg
+binwalk -e firmware.bin
+
+# Steganography
+steghide info image.jpg
+steghide extract -sf image.jpg
+snow -C file.txt
+```
