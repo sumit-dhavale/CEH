@@ -1,4 +1,4 @@
-# Recon-ng Cheat Sheet (CEH Practical)
+# Recon-ng 
 
 > Author: Personal Study Notes
 
