@@ -1,0 +1,10 @@
+# 1. Crack SSH Private Key Passphrases
+ssh2john.py /path/to/id_rsa > /tmp/ssh_hash.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt /tmp/ssh_hash.txt
+
+# 2. Crack Network Authentication Hashes (e.g., NetNTLMv2 from Responder logs)
+john --format=netntlmv2 --wordlist=/usr/share/wordlists/rockyou.txt /path/to/captured_hashes.txt
+
+# 3. Crack Linux /etc/shadow Passwords
+sudo unshadow /etc/passwd /etc/shadow > /tmp/linux_hashes.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt /tmp/linux_hashes.txt
