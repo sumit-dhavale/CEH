@@ -440,8 +440,9 @@ steghide embed -cf image.jpg -ef secret.txt
 Extract
 
 ```bash
-steghide extract -sf image.jpg
+steghide extract -sf image.jpg -p "SecretPassword123" 
 ```
+stegcracker suspicious_image.jpg /usr/share/wordlists/rockyou.txt
 
 Info
 
